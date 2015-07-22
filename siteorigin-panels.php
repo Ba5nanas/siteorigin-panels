@@ -934,7 +934,7 @@ function siteorigin_panels_render( $post_id = false, $enqueue_css = true, $panel
 		}
 
 		// Themes can add their own attributes to the style wrapper
-		$row_style_wrapper = siteorigin_panels_start_style_wrapper( 'row', $style_attributes, !empty($panels_data['grids'][$gi]['style']) ? $panels_data['grids'][$gi]['style'] : array() );
+		$row_style_wrapper = siteorigin_panels_start_style_wrapper( 'row', apply_filters('siteorigin_style_attributes_row',$style_attributes), !empty($panels_data['grids'][$gi]['style']) ? $panels_data['grids'][$gi]['style'] : array() );
 		if( !empty($row_style_wrapper) ) echo $row_style_wrapper;
 
 		foreach ( $cells as $ci => $widgets ) {
@@ -951,12 +951,12 @@ function siteorigin_panels_render( $post_id = false, $enqueue_css = true, $panel
 			}
 			echo '>';
 
-			$cell_style_wrapper = siteorigin_panels_start_style_wrapper( 'cell', array(), !empty($panels_data['grids'][$gi]['style']) ? $panels_data['grids'][$gi]['style'] : array() );
+			$cell_style_wrapper = siteorigin_panels_start_style_wrapper( 'cell', apply_filters('siteorigin_style_attributes_cell'), !empty($panels_data['grids'][$gi]['style']) ? $panels_data['grids'][$gi]['style'] : array() );
 			if( !empty($cell_style_wrapper) ) echo $cell_style_wrapper;
 
 			foreach ( $widgets as $pi => $widget_info ) {
 				// TODO this wrapper should go in the before/after widget arguments
-				$widget_style_wrapper = siteorigin_panels_start_style_wrapper( 'widget', array(), !empty( $widget_info['panels_info']['style'] ) ? $widget_info['panels_info']['style'] : array() );
+				$widget_style_wrapper = siteorigin_panels_start_style_wrapper( 'widget', apply_filters('siteorigin_style_attributes_widget'), !empty( $widget_info['panels_info']['style'] ) ? $widget_info['panels_info']['style'] : array() );
 				siteorigin_panels_the_widget( $widget_info['panels_info'], $widget_info, $gi, $ci, $pi, $pi == 0, $pi == count( $widgets ) - 1, $post_id, $widget_style_wrapper );
 			}
 			if ( empty( $widgets ) ) echo '&nbsp;';
